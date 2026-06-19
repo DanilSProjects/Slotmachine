@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(event) {
     let symbols = [["🍒", "🍋", "💎", "🍉", "💰", "🍀"], ["🍉", "💰", "🍀", "🍒", "🍋", "💎"], ["🍒", "🍉", "🍋", "💰", "💎", "🍀"]];
+    let balance = 200;
+    let cost = 10;
     let spinButton = document.getElementById("spin-button");
 
     function symbolAdjust() {
@@ -11,23 +13,29 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     spinButton.addEventListener("click", function(event) {
-        for (let x = 0; x <= 2; x++) {
-            let ranNum = Math.ceil(Math.random()*100); // let keyword is important here! this ensures each variation of the loop has the ranNum and count locked in for that specific variation, isntead of being overwritten by the last generated instance
-            let count = 0; // for that nice "animation", i want to increment the numbers of each column one by one with the help of this variable
+        if (balance < cost) {
+            alert("You've gone bust! Come back when you're a little richer!");
+        } else {
+            balance -= cost;
+            document.getElementById("balance").innerHTML = balance;
+            for (let x = 0; x <= 2; x++) {
+                let ranNum = Math.ceil(Math.random()*100); // let keyword is important here! this ensures each variation of the loop has the ranNum and count locked in for that specific variation, isntead of being overwritten by the last generated instance
+                let count = 0; // for that nice "animation", i want to increment the numbers of each column one by one with the help of this variable
 
-            function increment() {
-                count += 1;
+                function increment() {
+                    count += 1;
 
-                for (let y = 0; y <= 2; y++) {
-                    let symNum = (count % 6) + y;
-                    document.getElementById(`${x},${y}`).innerHTML = symbols[x][symNum % 6];
+                    for (let y = 0; y <= 2; y++) {
+                        let symNum = (count % 6) + y;
+                        document.getElementById(`${x},${y}`).innerHTML = symbols[x][symNum % 6];
+                    }
+
+                    if (count == ranNum) {
+                        clearInterval(incrementInterval);
+                    }
                 }
-
-                if (count == ranNum) {
-                    clearInterval(incrementInterval);
-                }
+                let incrementInterval = setInterval(increment, 10); // every 10ms, "shift down" each column by 1 until it hits the randomly generated number for that column
             }
-            let incrementInterval = setInterval(increment, 10); // every 10ms, "shift down" each column by 1 until it hits the randomly generated number for that column
         }
     })
 })
