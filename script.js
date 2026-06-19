@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-    let symbols = [["X", "Y", "Z", "A", "B", "C"], ["A", "B", "C", "X", "Y", "Z"], ["A", "X", "B", "Y", "C", "Z"]];
+    let symbols = [["🍒", "🍋", "💎", "🍉", "💰", "🍀"], ["🍉", "💰", "🍀", "🍒", "🍋", "💎"], ["🍒", "🍉", "🍋", "💰", "💎", "🍀"]];
     let spinButton = document.getElementById("spin-button");
 
     function symbolAdjust() {

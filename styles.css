@@ -1,5 +1,6 @@
 body {
     text-align: center;
+    font-family: 'Federo';
 }
 
 #machine {
@@ -12,6 +13,7 @@ body {
 td {
     border:2px solid black;
     padding:30px;
+    font-size:38px;
 }
 
 button {
