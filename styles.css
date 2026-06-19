@@ -1,0 +1,32 @@
+body {
+    text-align: center;
+}
+
+#machine {
+    margin: auto;
+    border:5px solid black;
+    border-radius: 5px;
+    border-spacing: 20px;
+}
+
+td {
+    border:2px solid black;
+    padding:30px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 20px;
+    background-color: red;
+    border-radius: 100%;
+    border: 2px black solid;
+}
+
+button:hover {
+    padding: 30px;
+    cursor: pointer;
+}
+
+button:active {
+    background-color: rgb(211, 0, 0);
+}
