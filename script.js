@@ -1,13 +1,14 @@
 document.addEventListener("DOMContentLoaded", function(event) {
     let symbols = [["🍒", "🍋", "💎", "🍉", "💰", "🍀"], ["🍉", "💰", "🍀", "🍒", "🍋", "💎"], ["🍒", "🍉", "🍋", "💰", "💎", "🍀"]];
     let payouts = [20, 30, 40, 50, 100, 200];
+    let combis = ["🍒🍒🍒", "🍋🍋🍋", "🍉🍉🍉", "💰💰💰", "🍀🍀🍀", "💎💎💎"];
     let bet = 10;
     let balance = 200;
     let cost = 10;
     let spinButton = document.getElementById("spin-button");
 
 
-    function getCombinations() {
+    function getCombinations() { // obtains the horizontal and diagonal combinations after each spin is completed
         let currentCombinations = [];
 
         for (let y = 0; y < 3; y++) {
@@ -19,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
 
             currentCombinations.push(currentHorizontal);
-            console.log(currentCombinations);
         }
 
         // identifying the 2x DIAGONAL combinations
@@ -50,11 +50,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
 
         currentCombinations.push(secondDiagonal);
-
-        console.log(currentCombinations);
+        checkCombinations(currentCombinations);
     }
 
+    function checkCombinations(currentCombinations) { // checks the horizontal and diagonal combinations against the payout combinations array
+        for (curCombi of currentCombinations) {
+            for (let i = 0; i < combis.length; i++) {
+                if (curCombi == combis[i]) {
+                    balance += payouts[i];
+                    document.getElementById("balance").innerHTML = balance;
+                    document.getElementById("win-result").innerHTML = `Congratulations! You got a ${combis[i]}, worth $${payouts[i]}! Your balance is now ${balance}.`;
+                    break;
+                }
+            }
+        }
+    }
+
+
+
+
     spinButton.addEventListener("click", function(event) {
+        document.getElementById("win-result").innerHTML = "";
         if (balance < cost) {
             alert("You've gone bust! Come back when you're a little richer!");
         } else {

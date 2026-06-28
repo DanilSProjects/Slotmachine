@@ -36,3 +36,8 @@ button:active {
 hr {
     margin: 2%;
 }
+
+#payout-legend table{
+    text-align: center;
+    margin:auto;
+}
