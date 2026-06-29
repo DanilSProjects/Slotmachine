@@ -41,3 +41,16 @@ hr {
     text-align: center;
     margin:auto;
 }
+
+#clear-data {
+    background-color: gray;
+    border-radius: 10%;
+    margin-bottom: 2%;
+    font-family: 'Federo';
+    font-weight: bold;
+    color: white;
+}
+
+#clear-data:active {
+    background-color: rgb(94, 94, 94);
+}
