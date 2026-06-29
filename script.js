@@ -3,7 +3,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let payouts = [20, 30, 40, 50, 100, 200];
     let combis = ["🍒🍒🍒", "🍋🍋🍋", "🍉🍉🍉", "💰💰💰", "🍀🍀🍀", "💎💎💎"];
     let bet = 10;
-    let balance = 200;
+    let balance = localStorage.getItem("balance");
+    if (balance == null) { // for first time initialisation purposes
+        balance = 200;
+    }
+    document.getElementById("balance").innerHTML = balance;
     let cost = 10;
     let spinButton = document.getElementById("spin-button");
 
@@ -58,16 +62,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
             for (let i = 0; i < combis.length; i++) {
                 if (curCombi == combis[i]) {
                     balance += payouts[i];
+                    localStorage.setItem("balance", balance);
                     document.getElementById("balance").innerHTML = balance;
-                    document.getElementById("win-result").innerHTML = `Congratulations! You got a ${combis[i]}, worth $${payouts[i]}! Your balance is now ${balance}.`;
+                    document.getElementById("win-result").innerHTML += `Congratulations! You got a ${combis[i]}, worth $${payouts[i]}! Your balance is now ${balance}.<br>`;
                     break;
                 }
             }
         }
     }
-
-
-
 
     spinButton.addEventListener("click", function(event) {
         document.getElementById("win-result").innerHTML = "";
@@ -75,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             alert("You've gone bust! Come back when you're a little richer!");
         } else {
             balance -= cost;
+            localStorage.setItem("balance", balance);
             document.getElementById("balance").innerHTML = balance;
             let spinsCleared = 0;
 
@@ -103,5 +106,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 let incrementInterval = setInterval(increment, 10); // every 10ms, "shift down" each column by 1 until it hits the randomly generated number for that column
             }
         }
+    })
+
+    document.getElementById("clear-data").addEventListener("click", function(event) {
+        localStorage.removeItem("balance");
+        location.reload();
     })
 })
